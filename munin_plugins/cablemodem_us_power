@@ -1,19 +1,20 @@
 #!/usr/bin/env python
 from cablestats.munin_helper import CableModemPlugin
 
-class CMUpstreamPowerPlugin(CableModemPlugin):
-	title = 'Upstream Power'
-	direction = 'upstream'
-	field = 'channel_power'
-	vlabel = "Power (dBmV)"
-	category = "Cable"
 
-	def channel_info(self, ch):
-		return "Channel ID: {}, Frequency: {} Hz, Modulation: {}".format(
-			self.data[ch]['channel_id'],
-			self.data[ch]['frequency'],
-			self.data[ch]['modu'],
-			)
+class CMUpstreamPowerPlugin(CableModemPlugin):
+    title = 'Upstream Power'
+    direction = 'upstream'
+    field = 'channel_power'
+    vlabel = "Power (dBmV)"
+    category = "Cable"
+
+    def channel_info(self, ch):
+        return "Channel ID: {}, Frequency: {} Hz, Modulation: {}".format(
+            self.data[ch]['channel_id'],
+            self.data[ch]['frequency'],
+            self.data[ch]['modu'],
+        )
 
 if __name__ == "__main__":
-	CMUpstreamPowerPlugin().run()
+    CMUpstreamPowerPlugin().run()

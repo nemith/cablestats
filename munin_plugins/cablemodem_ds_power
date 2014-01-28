@@ -1,18 +1,19 @@
 #!/usr/bin/env python
 from cablestats.munin_helper import CableModemPlugin
 
-class CMDownstreamPowerPlugin(CableModemPlugin):
-	title = 'Downstream Power'
-	direction = 'downstream'
-	field = 'channel_powerd_bm_v'
-	vlabel = "Power (dBmV)"
-	category = "Cable"
 
-	def channel_info(self, ch):
-		return "Frequency: {} Hz, Modulation: {}".format(
-			self.data[ch]['frequency'],
-			self.data[ch]['qam'],
-			)
+class CMDownstreamPowerPlugin(CableModemPlugin):
+    title = 'Downstream Power'
+    direction = 'downstream'
+    field = 'channel_powerd_bm_v'
+    vlabel = "Power (dBmV)"
+    category = "Cable"
+
+    def channel_info(self, ch):
+        return "Frequency: {} Hz, Modulation: {}".format(
+            self.data[ch]['frequency'],
+            self.data[ch]['qam'],
+        )
 
 if __name__ == "__main__":
-	CMDownstreamPowerPlugin().run()
+    CMDownstreamPowerPlugin().run()
