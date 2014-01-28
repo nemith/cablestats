@@ -1,0 +1,18 @@
+#!/usr/bin/env python
+from cablestats.munin_helper import CableModemPlugin
+
+class CMDownstreamSNRPlugin(CableModemPlugin):
+	cm_title = 'Downstream SNR'
+	cm_direction = 'downstream'
+	cm_field = 'snr'
+	vlable = 'SNR (dB)'
+	category = 'cable'
+
+	def channel_info(self, ch):
+		return "Frequency: {} Hz, Modulation: {}".format(
+			self.data[ch]['frequency'],
+			self.data[ch]['qam'],
+			)
+
+if __name__ == "__main__":
+	CMDownstreamSNRPlugin().run()
