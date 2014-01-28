@@ -1,10 +1,10 @@
-import requests
-import cookielib
-import lxml.html as html
-import re
-import pprint
-import datetime
 from collections import namedtuple
+import cookielib
+import datetime
+import re
+
+import lxml.html as html
+import requests
 
 def camel_to_under(name):
     s1 = re.sub('(.)([A-Z][a-z]+)', r'\1_\2', name)
