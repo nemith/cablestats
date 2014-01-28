@@ -5,8 +5,8 @@ class CMDownstreamPowerPlugin(CableModemPlugin):
 	cm_title = 'Downstream Power'
 	cm_direction = 'downstream'
 	cm_field = 'channel_powerd_bm_v'
-	vlable = "Power (dBmV)"
-	category = "cable"
+	vlabel = "Power (dBmV)"
+	category = "Cable"
 
 	def channel_info(self, ch):
 		return "Frequency: {} Hz, Modulation: {}".format(

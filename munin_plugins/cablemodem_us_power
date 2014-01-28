@@ -4,9 +4,9 @@ from cablestats.munin_helper import CableModemPlugin
 class CMUpstreamPowerPlugin(CableModemPlugin):
 	cm_title = 'Upstream Power'
 	cm_direction = 'upstream'
-	cm_field = 'channel_powerd_bm_v'
-	vlable = "Power (dBmV)"
-	category = "cable"
+	cm_field = 'channel_power'
+	vlabel = "Power (dBmV)"
+	category = "Cable"
 
 	def channel_info(self, ch):
 		return "Channel ID: {}, Frequency: {} Hz, Modulation: {}".format(

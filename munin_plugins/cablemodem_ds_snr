@@ -5,8 +5,8 @@ class CMDownstreamSNRPlugin(CableModemPlugin):
 	cm_title = 'Downstream SNR'
 	cm_direction = 'downstream'
 	cm_field = 'snr'
-	vlable = 'SNR (dB)'
-	category = 'cable'
+	vlabel = 'SNR (dB)'
+	category = 'Cable'
 
 	def channel_info(self, ch):
 		return "Frequency: {} Hz, Modulation: {}".format(
