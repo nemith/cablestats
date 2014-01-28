@@ -1,7 +1,7 @@
 import os
 import sys
 from munin import MuninPlugin
-from cablestats import ComcastModem
+from cablestats import ComcastBCModem
 
 def _to_long_name(ch):
 	return ch.replace("ch", "Channel ")
@@ -9,18 +9,14 @@ def _to_long_name(ch):
 class CableModemPlugin(MuninPlugin):
 	category = "Cable"
 
-	@property
-	def title(self):
-		return "{} @ {}".format(self.cm_title, self.host)
-
 	def __init__(self):
-		self.host = os.environ.get("CM_HOST", "10.1.10.1")
-		modem = ComcastModem(self.host)
+		self.host_name = os.environ.get("CM_HOST", "10.1.10.1")
+		modem = ComcastBCModem(self.host_name)
 		stats = modem.get_cm_stats()
 
-		if self.cm_direction == 'upstream':
+		if self.direction == 'upstream':
 			self.data = stats.us_channels
-		elif self.cm_direction == 'downstream':
+		elif self.direction == 'downstream':
 			self.data = stats.ds_channels
 		else:
 			sys.exit(1)
@@ -40,5 +36,5 @@ class CableModemPlugin(MuninPlugin):
 	def execute(self):
 		ret = {}
 		for (ch, value) in self.data.iteritems():
-			ret[ch] = value[self.cm_field]
+			ret[ch] = value[self.field]
 		return ret

@@ -11,7 +11,7 @@ def camel_to_under(name):
     return re.sub('([a-z0-9])([A-Z])', r'\1_\2', s1).lower()
 
 
-class ComcastModem(object):
+class ComcastBCModem(object):
 	_DEFAULT_USERNAME = "cusadmin"
 	_DEFAULT_PASSWORD = "highspeed"
 

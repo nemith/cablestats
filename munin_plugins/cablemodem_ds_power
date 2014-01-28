@@ -2,9 +2,9 @@
 from cablestats.munin_helper import CableModemPlugin
 
 class CMDownstreamPowerPlugin(CableModemPlugin):
-	cm_title = 'Downstream Power'
-	cm_direction = 'downstream'
-	cm_field = 'channel_powerd_bm_v'
+	title = 'Downstream Power'
+	direction = 'downstream'
+	field = 'channel_powerd_bm_v'
 	vlabel = "Power (dBmV)"
 	category = "Cable"
 

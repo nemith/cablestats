@@ -2,9 +2,9 @@
 from cablestats.munin_helper import CableModemPlugin
 
 class CMDownstreamSNRPlugin(CableModemPlugin):
-	cm_title = 'Downstream SNR'
-	cm_direction = 'downstream'
-	cm_field = 'snr'
+	title = 'Downstream SNR'
+	direction = 'downstream'
+	field = 'snr'
 	vlabel = 'SNR (dB)'
 	category = 'Cable'
 
