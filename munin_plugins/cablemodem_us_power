@@ -8,6 +8,7 @@ class CMUpstreamPowerPlugin(CableModemPlugin):
     field = 'channel_power'
     vlabel = "Power (dBmV)"
     category = "Cable"
+    critical = "37:55"
 
     def channel_info(self, ch):
         return "Channel ID: {}, Frequency: {} Hz, Modulation: {}".format(

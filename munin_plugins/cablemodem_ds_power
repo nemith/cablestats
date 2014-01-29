@@ -8,6 +8,8 @@ class CMDownstreamPowerPlugin(CableModemPlugin):
     field = 'channel_powerd_bm_v'
     vlabel = "Power (dBmV)"
     category = "Cable"
+    warning = "-8:8"
+    critical = "-15:15"
 
     def channel_info(self, ch):
         return "Frequency: {} Hz, Modulation: {}".format(

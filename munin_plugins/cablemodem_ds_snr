@@ -8,6 +8,7 @@ class CMDownstreamSNRPlugin(CableModemPlugin):
     field = 'snr'
     vlabel = 'SNR (dB)'
     category = 'Cable'
+    critical = "30:" # Less than 30db is bad m'kay
 
     def channel_info(self, ch):
         return "Frequency: {} Hz, Modulation: {}".format(
