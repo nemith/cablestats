@@ -14,7 +14,7 @@ class CableModemPlugin(MuninPlugin):
     def __init__(self):
         self.host_name = os.environ.get("CM_HOST", "10.1.10.1")
         modem = ComcastBCModem(self.host_name)
-        stats = modem.get_cm_stats()
+        stats = modem.get_modem_stats()
 
         if self.direction == 'upstream':
             self.data = stats.us_channels

@@ -22,6 +22,7 @@ class ComcastBCModem(object):
 
     _LOGIN_URL = "http://{host}/goform/login"
     _CMSTATS_URL = "http://{host}/user/feat-gateway-modem.asp"
+    _STATUS_URL = "http://{host}/user/feat-gateway-status.asp"
 
     def __init__(self, host,
                  username=_DEFAULT_USERNAME,
@@ -79,8 +80,33 @@ class ComcastBCModem(object):
 
     CmStats = namedtuple('CmStats', 'status, ds_channels, us_channels')
 
+    def _get_page(self, url):
+        url = url.format(host=self.host)
+        r = requests.get(url, cookies=self._cookie_jar)
+        r.raise_for_status()
+
+        # Parse the Javascript from the header
+        return html.document_fromstring(r.text)
+
+    def _parse_uptime(self, date_string):
+        m = re.match(
+            "(?P<days>\d{3}) days (?P<hours>\d{2})h:(?P<minutes>\d{2})m:(?P<seconds>\d{2})s", date_string)
+        if m:
+            time_matches = {x: int(y) for (x, y) in m.groupdict().iteritems()}
+            return datetime.timedelta(**time_matches)
+        return None
+
     @_require_login
-    def get_cm_stats(self):
+    def get_status(self):
+        doctree = self._get_page(self._STATUS_URL)
+
+        raw_uptime = doctree.xpath(
+            '//td[text()="System Uptime"]/following-sibling::node()/text()')[0]
+        uptime = self._parse_uptime(raw_uptime)
+        return uptime
+
+    @_require_login
+    def get_modem_stats(self):
         CABLE_STATUS = [
             "reset_interface",  # 0
             "reset_hardware",  # 1
@@ -98,13 +124,9 @@ class ComcastBCModem(object):
             "cmts_rejected"  # 13
         ]
 
-        url = self._CMSTATS_URL.format(host=self.host)
-        r = requests.get(url, cookies=self._cookie_jar)
-        r.raise_for_status()
-
-        # Parse the Javascript from the header
-        tree = html.document_fromstring(r.text)
-        javascript = tree.xpath('//head/script[@language="JavaScript"]/text()')
+        doctree = self._get_page(self._CMSTATS_URL)
+        javascript = doctree.xpath(
+            '//head/script[@language="JavaScript"]/text()')
 
         cm_ds_channels = {}
         cm_us_channels = {}
@@ -141,3 +163,7 @@ class ComcastBCModem(object):
                             ch_data[key] = value
 
         return self.CmStats(status, cm_ds_channels, cm_us_channels)
+
+if __name__ == "__main__":
+    modem = ComcastBCModem("10.1.10.1")
+    print round(modem.get_status().total_seconds() / 86400.0, 2)
