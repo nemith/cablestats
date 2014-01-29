@@ -8,13 +8,6 @@ setup(
     author='Brandon Bennett',
     author_email='bennetb@gmail.com',
     packages=['cablestats'],
-    install_requires=[
-        'requests',
-        'lxml',
-    ],
-    dependency_links=[
-        'git+https://github.com/samuel/python-munin',
-    ],
     data_files=[
         ('share/cablestats/munin_plugins',
             ['munin_plugins/cablemodem_ds_power',
